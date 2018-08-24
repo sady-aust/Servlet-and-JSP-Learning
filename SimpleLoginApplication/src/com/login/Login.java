@@ -8,12 +8,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import BLL.UserManager;
+
 /**
  * Servlet implementation class Login
  */
 @WebServlet("/Login")
 public class Login extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	UserManager aManager = new UserManager();
        
   
 	/**
@@ -24,7 +27,7 @@ public class Login extends HttpServlet {
 		String userName = request.getParameter("username").trim();
 		String password = request.getParameter("pass").trim();
 		
-		if(userName.equals("toufiq") && password.equals("123")) {
+		if(aManager.isAvailable(userName, password)) {
 			HttpSession session = request.getSession();
 			session.setAttribute("uname", userName);
 			session.setAttribute("password", password);
